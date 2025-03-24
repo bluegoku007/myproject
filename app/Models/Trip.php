@@ -18,6 +18,7 @@ class Trip extends Model {
         'selected_flight',
         'interests',
         'currency',
+        'email',
     ];
 
     protected $casts = [

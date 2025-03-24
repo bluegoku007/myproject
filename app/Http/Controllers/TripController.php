@@ -6,8 +6,12 @@ use App\Models\Trip;
 use Illuminate\Http\Request;
 
 class TripController extends Controller {
+    
     public function store(Request $request) {
+        $user = auth()->user(); // ✅ Récupérer l'utilisateur connecté via le token
+
         $validated = $request->validate([
+            'email' => 'required|email', // ✅ Validation de l'email
             'origin' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
             'fromDate' => 'required|date',
@@ -20,6 +24,7 @@ class TripController extends Controller {
         ]);
 
         $trip = Trip::create([
+            'email' => $user->email, // ✅ Utiliser l'email de l'utilisateur connecté
             'origin' => $validated['origin'],
             'destination' => $validated['destination'],
             'from_date' => $validated['fromDate'],
@@ -33,10 +38,18 @@ class TripController extends Controller {
 
         return response()->json(['message' => 'Trip saved successfully!', 'trip' => $trip], 201);
     }
+    
+    public function index(Request $request) { // ✅ Ajouter Request $request
+        // Vérifier si l'email est bien envoyé
+        if (!$request->has('email')) {
+            return response()->json(['error' => 'Email is required'], 400);
+        }
 
-    public function index() {
-        $trips = Trip::orderBy('created_at', 'desc')->get();
+        $email = $request->query('email'); // ✅ Récupérer l'email depuis la requête GET
+
+        // ✅ Récupérer uniquement les voyages de l'utilisateur
+        $trips = Trip::where('email', $email)->orderBy('created_at', 'desc')->get();
+
         return response()->json($trips);
     }
-    
 }

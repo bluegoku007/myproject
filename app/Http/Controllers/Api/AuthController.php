@@ -40,31 +40,32 @@ class AuthController extends Controller
         return response()->json(['user' => $user], 201);
     }
 
-    // Login method
     public function login(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'email' => 'required|string|email',
-        'password' => 'required|string',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    
+        $token = $user->createToken('YourAppName')->plainTextToken;
+    
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+            'email' => $user->email,  // <-- Assure-toi que l'email est bien inclus
+        ]);
     }
-
-    $user = User::where('email', $request->email)->first();
-
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Unauthorized'], 401);
-    }
-
-    $token = $user->createToken('YourAppName')->plainTextToken;
-
-    return response()->json([
-        'user' => $user,
-        'token' => $token,
-    ]);
-}
+    
 
 
     // Logout method
