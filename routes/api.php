@@ -10,7 +10,10 @@ use App\Http\Controllers\FlightController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\TripController;
 use App\Http\Middleware\CorsMiddleware;
-
+use App\Http\Controllers\AirportController;
+use App\Http\Controllers\IataController;
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\MuseumController;
 // Apply CORS middleware to all routes
 Route::middleware(CorsMiddleware::class)->group(function () {
     // Public routes (no authentication required)
@@ -21,6 +24,11 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::get('/cities', [CountryCityController::class, 'getCities']);
     Route::get('/reverse-geocode', [GeolocationController::class, 'getCountry']);
     Route::get('/flights', [FlightController::class, 'searchFlights']);
+    Route::get('/airport-code', [AirportController::class, 'getAirportCodes']);
+    Route::get('/iata', [IataController::class, 'getIataCode']);
+    Route::get('/restaurants', [RestaurantController::class, 'getRestaurants']);
+    Route::get('/museums', [MuseumController::class, 'index']);
+
 
 });
 
