@@ -19,6 +19,13 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     // Public routes (no authentication required)
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('/google-login', [AuthController::class, 'googleLogin']); // ✅ Ajouter ici
+
+    Route::get('/trips/popular-destinations', [TripController::class, 'popularDestinations']);
+    Route::get('/trips/popular-origins', [TripController::class, 'popularorigins']);
+
+
+
     Route::get('/currencies', [CurrencyController::class, 'getCurrencies']);
     Route::get('/countries', [CountryCityController::class, 'getCountries']);
     Route::get('/cities', [CountryCityController::class, 'getCities']);

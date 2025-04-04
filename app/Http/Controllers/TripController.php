@@ -52,4 +52,29 @@ class TripController extends Controller {
 
         return response()->json($trips);
     }
+
+
+    public function popularDestinations() {
+        $popularDestinations = Trip::select('destination')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('destination')
+            ->orderByDesc('count')
+            ->limit(7) // ✅ Prendre les 7 destinations les plus populaires
+            ->get();
+    
+        return response()->json($popularDestinations);
+    }
+    
+    public function popularorigins() {
+        $popularorigins = Trip::select('origin')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('origin')
+            ->orderByDesc('count')
+            ->limit(7) // ✅ Prendre les 7 origins les plus populaires
+            ->get();
+    
+        return response()->json($popularorigins);
+    }
+
+
 }
