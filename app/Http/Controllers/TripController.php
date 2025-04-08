@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TripController extends Controller {
     
@@ -76,5 +77,32 @@ class TripController extends Controller {
         return response()->json($popularorigins);
     }
 
+    public function totalBudgetGlobal() {
+        $totalBudget = Trip::sum('budget');
+        return response()->json(['total_budget' => $totalBudget]);
+    }
+    public function averageBudget()
+    {
+        $average = Trip::avg('budget'); // Assuming 'budget' is your column name
+        return response()->json(['average_budget' => $average]);
+    }
+
+    public function userWithMostBudget() {
+        $user = Trip::select('email')
+            ->selectRaw('SUM(budget) as total_budget')
+            ->groupBy('email')
+            ->orderByDesc('total_budget')
+            ->first();
+    
+        if (!$user) {
+            return response()->json(['message' => 'No trips found'], 404);
+        }
+    
+        return response()->json([
+            'email' => $user->email,
+            'total_budget' => $user->total_budget,
+        ]);
+    }
+    
 
 }

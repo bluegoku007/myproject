@@ -36,6 +36,10 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::get('/restaurants', [RestaurantController::class, 'getRestaurants']);
     Route::get('/museums', [MuseumController::class, 'index']);
 
+    Route::get('/trips/total-budget', [TripController::class, 'totalBudgetGlobal']);
+    Route::get('/trips/average', [TripController::class, 'averageBudget']);
+    Route::get('/trips/user-with-most-budget', [TripController::class, 'userWithMostBudget']);
+
 
 });
 
