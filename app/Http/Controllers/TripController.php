@@ -66,6 +66,36 @@ class TripController extends Controller {
         return response()->json($popularDestinations);
     }
     
+
+    public function popularInterests()
+    {
+        $allInterests = Trip::all()
+            ->flatMap(function ($trip) {
+                // Convertir en tableau si ce n’est pas déjà un tableau
+                $interests = is_array($trip->interests)
+                    ? $trip->interests
+                    : json_decode($trip->interests, true);
+    
+                return $interests ?? [];
+            })
+            ->filter()
+            ->countBy()
+            ->sortDesc()
+            ->take(7)
+            ->map(function ($count, $interest) {
+                return [
+                    'interest' => $interest,
+                    'count' => $count,
+                ];
+            })
+            ->values();
+    
+        return response()->json($allInterests);
+    }
+    
+
+    
+
     public function popularorigins() {
         $popularorigins = Trip::select('origin')
             ->selectRaw('COUNT(*) as count')

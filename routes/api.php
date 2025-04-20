@@ -24,6 +24,7 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::get('/trips/popular-destinations', [TripController::class, 'popularDestinations']);
     Route::get('/trips/popular-origins', [TripController::class, 'popularorigins']);
 
+    Route::get('/trips/popular-interests', [TripController::class, 'popularInterests']);
 
 
     Route::get('/currencies', [CurrencyController::class, 'getCurrencies']);
@@ -33,6 +34,7 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::get('/flights', [FlightController::class, 'searchFlights']);
     Route::get('/airport-code', [AirportController::class, 'getAirportCodes']);
     Route::get('/iata', [IataController::class, 'getIataCode']);
+    Route::get('/capital-iata', [IataController::class, 'getCapitalIata']);
     Route::get('/restaurants', [RestaurantController::class, 'getRestaurants']);
     Route::get('/museums', [MuseumController::class, 'index']);
 
@@ -40,6 +42,9 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::get('/trips/average', [TripController::class, 'averageBudget']);
     Route::get('/trips/user-with-most-budget', [TripController::class, 'userWithMostBudget']);
 
+    // routes/api.php
+    Route::get('/country', [GeolocationController::class, 'getCountry']);
+    Route::get('/capital', [GeolocationController::class, 'getCapitalFromCoordinates']);
 
 });
 

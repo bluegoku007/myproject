@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('user')->after('email'); // Ajout de la colonne role
-        });
+       # Schema::table('users', function (Blueprint $table) {
+        #    $table->string('role')->default('user')->after('email'); // Ajout de la colonne role
+        #});
     }
 
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role'); // Suppression de la colonne en cas de rollback
-        });
+    #    Schema::table('users', function (Blueprint $table) {
+     #       $table->dropColumn('role'); // Suppression de la colonne en cas de rollback
+      #  });
     }
 };

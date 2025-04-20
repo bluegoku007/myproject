@@ -34,5 +34,16 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'amadeus' => [
+        'key' => env('AMADEUS_KEY'),
+        'secret' => env('AMADEUS_SECRET'),
+        'url' => env('AMADEUS_API_URL', 'https://test.api.amadeus.com'),
+    ],
+    'geodb' => [
+    'key' => env('GEO_DB_API_KEY'),
+    'url' => 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
+    ],
 
+
+    
 ];
