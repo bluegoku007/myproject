@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trip extends Model {
     use HasFactory;
-#siuu
+#siuuuuuu
 
     protected $fillable = [
         'origin',
