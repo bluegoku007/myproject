@@ -15,6 +15,7 @@ use App\Http\Controllers\IataController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\MuseumController;
 // Apply CORS middleware to all routes
+
 Route::middleware(CorsMiddleware::class)->group(function () {
     // Public routes (no authentication required)
     Route::post('register', [AuthController::class, 'register']);
