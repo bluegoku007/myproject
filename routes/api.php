@@ -20,7 +20,8 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('/google-login', [AuthController::class, 'googleLogin']); // ✅ Ajouter ici
-
+    Route::post('/send-verification', [AuthController::class, 'sendVerification']);
+    
     Route::get('/trips/popular-destinations', [TripController::class, 'popularDestinations']);
     Route::get('/trips/popular-origins', [TripController::class, 'popularorigins']);
 

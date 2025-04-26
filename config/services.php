@@ -43,7 +43,11 @@ return [
     'key' => env('GEO_DB_API_KEY'),
     'url' => 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities',
     ],
-
+    'mailgun' => [
+    'domain' => env('MAILGUN_DOMAIN'),
+    'secret' => env('MAILGUN_SECRET'),
+    'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+    ],
 
     
 ];
