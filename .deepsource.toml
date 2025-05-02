@@ -4,12 +4,9 @@ version = 1
 name = "php"
 enabled = true
 
-  [analyzers.meta]
-  php_version = "8.2"
-
   [analyzers.bootstrap]
   run = [
-    "composer install",
+    "composer install --no-interaction --prefer-dist",
     "cp .env.example .env",
     "php artisan key:generate"
   ]
