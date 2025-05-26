@@ -98,8 +98,14 @@ services:
             - 'host.docker.internal:host-gateway'
         volumes:
             - '/dev/shm:/dev/shm'
+        ports:
+            - '4444:4444'
+            - '5900:5900'
+        environment:
+        - VNC_PASSWORD=selmen12
         networks:
             - sail
+            
 networks:
     sail:
         driver: bridge
