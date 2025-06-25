@@ -46,10 +46,7 @@ Route::get('/test-email', function () {
 });
 
 Route::middleware(CorsMiddleware::class)->group(function () {
-    Route::get('/test-gemini', [GeminiController::class, 'generateContent']);
-    Route::get('/gemini/restaurants', [GeminiController::class, 'getRestaurantsByDay']);
 
-    Route::get('/gemini/museums', [GeminiController::class, 'getMuseumsByDay']);
 
     // Auth & Vérification
     Route::post('register', [AuthController::class, 'register']);
@@ -153,7 +150,9 @@ Route::middleware(CorsMiddleware::class)->group(function () {
     Route::get('/trips/user-with-most-budget', [TripController::class, 'userWithMostBudget']);
     Route::get('/trips/by-user', [TripController::class, 'index']);
     Route::get('/hotels/by-user', [HotelController::class, 'index']);
-
+    Route::get('/trips', [TripController::class, 'index']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
     // Users
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users', [UserController::class, 'store']);
@@ -179,7 +178,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 
+
     // Enregistrement
     Route::post('/save-trip', [TripController::class, 'store']);
     Route::post('/hotels', [HotelController::class, 'store']);
+
+    Route::post('/activities/prompt', [GeminiController::class, 'getActivities']);
+    Route::post('/activities', [GeminiController::class, 'store']);
+    Route::get('/activities/by-user', [GeminiController::class, 'getActivitiesByUser']);
+
 });

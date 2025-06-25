@@ -28,6 +28,30 @@ class UserController extends Controller
         $userCount = User::count();
         return response()->json(['count' => $userCount]);
     }
+    public function update(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+    
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,'.$user->id,
+        'password' => 'nullable|string|min:8' // Make password optional
+    ]);
+    
+    // Only update password if it was provided
+    if (empty($validated['password'])) {
+        unset($validated['password']);
+    }
+    
+    $user->update($validated);
+    return response()->json($user);
+}
+
+    public function destroy($id)
+    {
+        User::findOrFail($id)->delete();
+        return response()->json(null, 204);
+    }
 
 }
 
